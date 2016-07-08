@@ -1,41 +1,23 @@
 # MaxentTagger
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/maxent_tagger`. To experiment with that code, run `bin/console` for an interactive prompt.
+Attempt to port [Stanford's "Maximum Entropy" part-of-speech tagger](https://github.com/stanfordnlp/CoreNLP/tree/master/src/edu/stanford/nlp/tagger) to Ruby.
 
-TODO: Delete this and the text above, and describe your gem
+Contribute by cloning the project and running `bin/start`
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'maxent_tagger'
+```bash
+git clone git@github.com:boblail/maxent_tagger.git
+cd maxent_tagger
+bundle
+bin/start
 ```
 
-And then execute:
+`bin/start` should throw a `NotImplementedError` at the next method that needs to be ported.
 
-    $ bundle
+### Roadblock
 
-Or install it yourself as:
+I've hit a significant Roadblock. Two objects (`TaggerConfig` and `Extractors`) are serialized with [ObjectOutputStream](https://docs.oracle.com/javase/7/docs/api/java/io/ObjectOutputStream.html) which is [apparently nigh impossible to deserialize outside the JVM](http://stackoverflow.com/questions/29505/deserialize-in-a-different-language).
 
-    $ gem install maxent_tagger
+Possible ways forward:
 
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/maxent_tagger.
-
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
+ - [Java Object Serialization Specification](https://docs.oracle.com/javase/7/docs/platform/serialization/spec/serialTOC.html)
+ - This problem could be surmounted if these two object could be serialized differently. Perhaps a binary could convert modelFiles produced by Stanford's library to a more generically-serialized format.

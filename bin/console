@@ -10,5 +10,15 @@ require "maxent_tagger"
 # require "pry"
 # Pry.start
 
+puts <<-STR
+
+Try this:
+
+  MaxentTagger tagger = MaxentTagger.new("models/english-left3words-distsim.tagger")
+  sentence = SentenceUtils.to_word_list("The", "slimy", "slug", "crawled", "over", "the", "long", ",", "green", "grass", ".")
+  tagger.tag_sentence(sentence)
+
+STR
+
 require "irb"
 IRB.start
